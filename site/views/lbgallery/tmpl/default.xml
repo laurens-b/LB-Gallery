@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_LBGALLERY_LBGALLERY_VIEW_DEFAULT_TITLE">
+		<message>COM_LBGALLERY_LBGALLERY_VIEW_DEFAULT_DESC</message>
+	</layout>
+	<fields name="request">
+		<fieldset name="request">
+			<field
+					name="albumid"
+					type="text"
+					label="COM_LBGALLERY_LBGALLERY_FIELD_ALBUM_LABEL"
+					description="COM_LBGALLERY_LBGALLERY_FIELD_ALBUM_DESC"
+					default="0" 
+			/>
+		</fieldset>
+	</fields>
+</metadata>
