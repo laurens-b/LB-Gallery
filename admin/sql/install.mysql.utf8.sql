@@ -6,7 +6,7 @@ CREATE TABLE `#__lbgallery_items` (
 	`alias` VARCHAR(255) NOT NULL,
 	`title` VARCHAR(255) NOT NULL,
 	`path` VARCHAR(255) NOT NULL,
-	`created_time` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+	`created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
 	`published` tinyint(4) NOT NULL,
 	`ordering` int(11) NOT NULL DEFAULT '0',
 	PRIMARY KEY (`id`)

@@ -12,6 +12,10 @@ defined('_JEXEC') or die('Restricted access');
 
 class LBGalleryViewItems extends JViewLegacy
 {
+	protected $items;
+	protected $pagination;
+	protected $state;
+
 	function display($tpl = null)
 	{
 		if ($this->getLayout() !== 'modal')
@@ -22,7 +26,11 @@ class LBGalleryViewItems extends JViewLegacy
 		// Get data from the model
 		$this->items		= $this->get('Items');
 		$this->pagination	= $this->get('Pagination');
- 
+		$this->state         = $this->get('State');
+		//$this->authors       = $this->get('Authors');
+		$this->filterForm    = $this->get('FilterForm');
+		$this->activeFilters = $this->get('ActiveFilters');
+
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{
