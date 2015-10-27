@@ -29,10 +29,10 @@ class LBGalleryModelItems extends JModelList
 		$app = JFactory::getApplication();
 
 		// Adjust the context to support modal layouts.
-		if ($layout = $app->input->get('layout'))
-		{
-			$this->context .= '.' . $layout;
-		}
+		//if ($layout = $app->input->get('layout'))
+		//{
+		//	$this->context .= '.' . $layout;
+		//}
 
 		$search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
 		$this->setState('filter.search', $search);
@@ -77,8 +77,51 @@ class LBGalleryModelItems extends JModelList
 		$query->select(
 			$this->getState('list.select', 'i.id, i.catid, i.alias, i.title, i.path, i.created, i.published, i.ordering'));
         $query->from('#__lbgallery_items AS i');
-        $query->order('ordering', 'desc');
- 
+
+		// Join over the categories.
+		$query->select('c.title AS category_title')
+			->join('LEFT', '#__categories AS c ON c.id = i.catid');
+
+		// Filter by published state
+		$published = $this->getState('filter.published');
+
+		if (is_numeric($published))
+		{
+			$query->where('i.published = ' . (int) $published);
+		}
+		elseif ($published === '')
+		{
+			$query->where('(i.published = 0 OR i.published = 1)');
+		}
+
+		// Filter by search in title.
+		$search = $this->getState('filter.search');
+
+		if (!empty($search))
+		{
+			if (stripos($search, 'id:') === 0)
+			{
+				$query->where('i.id = ' . (int) substr($search, 3));
+			}
+			else
+			{
+				$search = $db->quote('%' . str_replace(' ', '%', $db->escape(trim($search), true) . '%'));
+				$query->where('(i.title LIKE ' . $search . ' OR i.alias LIKE ' . $search . ')');
+			}
+		}
+
+		// Add the list ordering clause.
+		$orderCol = $this->state->get('list.ordering', 'i.id');
+		$orderDirn = $this->state->get('list.direction', 'desc');
+
+		if ($orderCol == 'i.ordering' || $orderCol == 'category_title')
+		{
+			$orderCol = 'c.title ' . $orderDirn . ', i.ordering';
+		}
+
+		$query->order($db->escape($orderCol . ' ' . $orderDirn));
+
 		return $query;
+
 	}
 }

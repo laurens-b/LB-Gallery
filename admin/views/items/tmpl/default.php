@@ -30,8 +30,6 @@ if ($saveOrder)
 	JHtml::_('sortablelist.sortable', 'itemList', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
 }
 
-var_dump($listOrder);
-
 ?>
 <form action="index.php?option=com_lbgallery&view=items" method="post" id="adminForm" name="adminForm">
 <?php if (!empty( $this->sidebar)) : ?>
@@ -57,7 +55,7 @@ var_dump($listOrder);
 					<?php echo JHtml::_('grid.checkall'); ?>
 				</th>
 				<th width="1%" class="nowrap center">
-					<?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'i.state', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'i.published', $listDirn, $listOrder); ?>
 				</th>
 				<th width="90%">
 					<?php echo JHtml::_('searchtools.sort', 'JGLOBAL_TITLE', 'i.title', $listDirn, $listOrder); ?>
