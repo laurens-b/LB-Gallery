@@ -117,7 +117,8 @@ if ($saveOrder)
 								<div class="pull-left break-word">
 									<a class="hasTooltip" href="<?php echo JRoute::_('index.php?option=com_lbgallery&task=item.edit&id=' . $item->id); ?>" title="<?php echo JText::_('JACTION_EDIT'); ?>">
 										<?php echo $this->escape($item->title); ?>
-									</a>
+									</a> <span class="small">(<?php echo $this->escape($item->alias); ?>)</span>
+									<br><?php echo JText::_('JCATEGORY'); ?>: <?php echo $this->escape($item->category_title); ?>
 								</div>
 							</td>
 							<td class="nowrap small hidden-phone">
